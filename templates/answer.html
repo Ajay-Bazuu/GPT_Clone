@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="{% static 'src/styles.css' %}" rel="stylesheet">
+
+    <style>
+            .right1{
+        display:none
+    }
+	.typing {
+            border-right: .1em solid black;
+            white-space: pre-wrap; /* Preserve whitespace and line breaks */
+            overflow: hidden;
+            display: inline-block;
+        }
+
+    </style>
+    
+</head>
+<body>
+<div class="flex flex-row">
+            <div class="left h-screen w-[300px] contrast bg-neutral-100 p-3 ">
+                <div class="flex flex-row">
+                <img class="h-[30px] w-[60px]" src="{% static 'images\ChatGPT-Logo-removebg-preview.png' %}" alt="">
+                <h1 class="flex items-center p-2">New Chat </h1>
+                <img class="ml-20" src="{% static 'images\pencil-edit-02-stroke-rounded.svg' %}" alt="">
+
+                </div>
+                <div class="h-[350px] w-[300px]"></div>
+                    <div class="p-8">
+                    <h2 class="font-medium">Sign up or log in</h2>
+                    <p class="text-zinc-400 text">Get smarter responses,upload files and images, and more</p>
+                    </div>
+                    <div class="flex items-center justify-center flex-col">
+                    <button class="h-[40px] w-[260px] bg-emerald-600 rounded-lg">Signup</button>
+                    <button class="h-[40px] w-[260px] bg-white m-5 rounded-lg">Login</button>
+                    </div>
+            </div>
+            <div class="right h-screen w-screen ">
+                <div class="right1">
+                    <h3 class="p-3">ChatGPT</h3>
+                    <div class="flex items-center justify-center flex-col m-32">
+                        <img class="h-[40px] w-[80px]" src="{% static 'images\ChatGPT-Logo-removebg-preview.png' %}" alt="">
+                        <p class="font-medium text-2xl p-8">How can I help you today?</p>
+                        </div>
+                        <div class="flex-wrap flex-row flex gap-4 justify-center ml-40 mr-40">
+                        <div class="h-[70px] w-[400px] border-2 rounded-xl">
+                            <h4 class="font-medium ml-3">Explain superconductors</h4>
+                            <p class="text-zinc-400 ml-3">like i am five years old</p>
+                        </div>
+                        <div class="h-[70px] w-[400px] border-2 rounded-xl">
+                            <h5 class="font-medium ml-3">Write a text</h5>
+                            <p class="text-zinc-400 ml-3">Inviting my neighbors to a barbecue</p>
+                        </div>
+                        <div class="h-[70px] w-[400px] border-2 rounded-xl">
+                            <h6 class="font-medium ml-3 ">Write a short story</h6>
+                            <p class="text-zinc-400 ml-3">tailored to my favourite genre</p>
+                        </div>
+                        <div class="h-[70px] w-[400px] border-2 rounded-xl">
+                            <h6 class="font-medium ml-3">Plan a mental health day</h6>
+                            <p class="text-zinc-400 ml-3">to help me relax</p>
+                        </div>
+                        </div>
+                        <div class="flex justify-center items-center relative">
+                            <input class="border-2 h-[50px] w-[830px] rounded-2xl p-4 m-7 resize-none" type="text" placeholder="Message ChatGPT" name="message">
+                            <img class="absolute right-56 h-8 w-8" src="{% static 'images\square-arrow-up-02-stroke-rounded.svg' %}">
+                        </div>
+                </div>
+
+                <div class="right2">
+                    <h3 class="p-3">ChatGPT</h3>
+                    <div class="flex items-center  flex-row">
+                        <img class="h-8 w-8 ml-12 rounded-full" src="{% static 'images\profile.jpg'  %}" alt="">
+                        <h1  class="ml-4 font-bold">You</h1>
+                    </div>
+
+                    <div class="h-auto w-40 ml-36">
+                        <p>{{ chat.question }}</p>
+                    </div>
+                    <div class="flex">
+                        <img class="h-6 w-10 ml-8 flex flex-row" src="{% static 'images\ChatGPT-Logo-removebg-preview.png' %}" alt="">
+                        <h1 class="ml-16 font-bold">ChatGPT</h1>
+                    </div>
+
+                    <div class="flex  h-auto w-[900px] ml-32">
+                        <p class="typing" id="chat-answer">{{chat.answer}}
+                        </p>
+
+                    </div>
+
+                    
+					<form method="post" >
+						{% csrf_token %}
+					<div class="input mt-60 w-full text-center my-4 flex items-center justify-center relative">
+						
+						<textarea id=""
+							class=" resize-none w-[800px] border border-x-gray-300 py-4 px-4 rounded-xl focus:outline-none"
+							type="text" placeholder="Message ChatGPT..." name="question"></textarea>
+		
+		
+						<button id="sendButton2" class="bg-gray-300 rounded-lg h-8 w-8 absolute left-[890px] flex justify-center items-center">
+							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="text-white dark:text-black">
+								<path d="M7 11L12 6L17 11M12 18V7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+									stroke-linejoin="round"></path>
+							</svg>
+						</button>
+					</div>
+					</form>	
+                </div>
+
+                
+            </div>
+    
+</div>
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		const textElement = document.getElementById('chat-answer');
+		const text = textElement.innerText;
+		let index = 0;
+
+		textElement.innerText = '';
+
+		function type() {
+			if (index < text.length) {
+				if (text.charAt(index) === '\n') {
+					textElement.innerHTML += '<br>';
+				} else {
+					textElement.innerText += text.charAt(index);
+				}
+				index++;
+				setTimeout(type, 1); // Adjust typing speed here
+			} else {
+				textElement.classList.remove('typing');
+			}
+		}
+
+		type();
+	});
+</script>
+</body>
+</html>

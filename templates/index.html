@@ -1,0 +1,38 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTssssF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content=
+		"width=device-width, initial-scale=1.0">
+	<title>Ecommerce</title>
+	<link href="{% static 'src/styles.css' %}" rel="stylesheet">
+
+
+</head>
+
+<body class="bg-gray-100">
+<div class="container mt-48 flex flex-col lg:flex-row mx-auto justify-center items-center">
+	<div class="left w-1/2 mx-14 flex flex-col justify-center ">
+		<img class="w-80" src="https://static.xx.fbcdn.net/rsrc.php/y1/r/4lCu2zih0ca.svg" alt="">
+		<p class="text-3xl mx-6 hidden lg:inline">
+                <span>Connect with friends and the world</span><br>
+                <span>around you on Facebook.</span>
+            </p>
+	</div>
+	<div class="right flex flex-col bg-white p-8 justify-center items-center rounded-xl w-1/2 shadow-lg lg:w-1/4">
+		<input class="px-4 h-12 my-2 border border-1 border-gray-200 rounded-lg w-full" type="text" placeholder="Email or phone number">
+		<input class="px-4 h-12 my-2 border border-1 border-gray-200 rounded-lg w-full" type="password" placeholder="Password">
+		<button class="bg-blue-600 text-white w-full p-2 rounded-md font-bold text-xl hover:bg-blue-700">Log In</button>
+		<span class="text-blue-700 text-center text-sm my-2 cursor-pointer hover:underline">Forget password?</span>
+		<hr class="my-2">
+		<button class="bg-green-600 text-white  p-2 rounded-md font-bold text-xl w-fit px-4 mx-auto">Create new account</button>
+	</div>
+</div>
+</body>
+
+</html>
